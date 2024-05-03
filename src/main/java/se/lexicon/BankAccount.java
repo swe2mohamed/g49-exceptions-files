@@ -1,5 +1,7 @@
 package se.lexicon;
 
+import se.lexicon.exception.InsufficientFoundsException;
+
 public class BankAccount {
     private static int nextAccountNumber = 1000; // Starting account number
     private final int accountNumber;
@@ -11,12 +13,32 @@ public class BankAccount {
     }
 
 
+    /**
+     * add description about the method as text
+     * @param amount add description about amount
+     * @throws IllegalArgumentException add description about the exception
+     *
+     */
+
+
     public void deposit(double amount) {
-        // todo: needs completion
+        if(amount < 0){
+            throw new IllegalArgumentException("Deposit must be positive");
+        }
+        balance += amount;
+        System.out.println("Deposit successful. New Balance: " + balance);
     }
 
-    public void withdraw(double amount) {
-        // todo: needs completion
+    public void withdraw(double amount) throws InsufficientFoundsException{
+        if (amount < 0){
+            throw new IllegalArgumentException("Withdraw must be positive");
+        }
+        if (amount > balance){
+            throw new InsufficientFoundsException("Balance is insufficient.");
+        }
+
+        balance -= amount;
+        System.out.println("Withdrawal successful. New Balance: " + balance);
     }
 
     public int getAccountNumber() {
